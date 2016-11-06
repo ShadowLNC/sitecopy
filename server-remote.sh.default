@@ -1,3 +1,0 @@
-SERVER="http://example.com:80/path/"
-REMOTE="user@other.example.com:/home/user/path"
-SHADOW="shadow/"

@@ -1,2 +1,18 @@
 #.gitignore
-server-remote.sh
+
+#using a whitelist because we don't want copied files to show up
+*
+
+#also blacklist ones that we know will not ever be tracked
+endpoints.conf
+shadow/
+
+#licensing and git stuff
+!README.md
+!LICENSE.md
+!.gitignore
+
+#actual code and defaults file
+!endpoints.conf.default
+!setup.sh
+!copier.sh

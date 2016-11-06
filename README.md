@@ -6,9 +6,9 @@ Written in Bash; originally designed for mirroring the FLL&reg; scores.
 See http://www.firstlegoleague.org/ - trademarks may apply.
 
 ## Setup
-1. Configure your endpoints in server-remote.sh - a sample is available in the server-remote.sh.default file.
+1. Configure your endpoints and filename lists in endpoints.conf - a sample is available in the endpoints.conf.default file.
 1. The `SHADOW` folder is where a shadow copy of the files are kept; if the files do not change, a new copy is not uploaded.
 
-## Use
+## Usage
 1. Run `./setup.sh` to copy static files, such as stylesheets (CSS), images and JavaScript
-1. Run `./fetcher.sh` to copy the changing files (Ctrl+C to stop)
+1. Run `./copier.sh` to copy the changing files (Ctrl+C to stop)
