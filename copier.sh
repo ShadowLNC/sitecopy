@@ -20,7 +20,7 @@ trap cleanup EXIT
 
 #tunnel the connection so handshaking faster
 if [ ${1} = '--tunnel' ]; then
-  ssh -NL 2222:localhost:${REMOTE_PORT} -p ${REMOTE_PORT} $(echo "${REMOTE}" | sed -r 's/^([^:@]+@)?([a-zA-Z0-9_\-\.]+)(:.*)?$/\2/') &
+  ssh -NL 2222:localhost:${REMOTE_PORT} -p ${REMOTE_PORT} $(echo "${REMOTE}" | sed -r 's/^([^:@]+@)?([a-zA-Z0-9_\-\.]+)(:.*)?$/\1\2/') &
   echo "$!" > ssh.pid
   echo "Sleeping for 5 seconds to initiate SSH tunnel"
   sleep 5 #initialising
