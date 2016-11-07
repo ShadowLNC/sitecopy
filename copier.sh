@@ -2,6 +2,12 @@
 source endpoints.conf #get the config
 
 cleanup() {
+  #kill the ssh tunnel if it exists
+  if [ -e ssh.pid ]; then
+    kill -HUP $(cat ssh.pid)
+    rm ssh.pid
+  fi
+
   #rm any remaining page copies, but keep ${SHADOW} unscathed
   for ((i=0; i<${#PAGES[@]}; ++i)); do
     page=$(echo "${PAGES[i]}" | sed -r 's/^([^?]+)(\?[^?]*)?$/\1/')
@@ -11,6 +17,16 @@ cleanup() {
   #no need to actually exit at the end here as we only trap exit
 }
 trap cleanup EXIT
+
+#tunnel the connection so handshaking faster
+if [ ${1} = '--tunnel' ]; then
+  ssh -NL 2222:localhost:${REMOTE_PORT} -p ${REMOTE_PORT} $(echo "${REMOTE}" | sed -r 's/^([^:@]+@)?([a-zA-Z0-9_\-\.]+)(:.*)?$/\2/') &
+  echo "$!" > ssh.pid
+  echo "Sleeping for 5 seconds to initiate SSH tunnel"
+  sleep 5 #initialising
+  REMOTE=$(echo "${REMOTE}" | sed -r 's/^([^:@]+@)?([a-zA-Z0-9_\-\.]+)(:.*)?$/\1localhost\3/')
+  REMOTE_PORT=2222
+fi
 
 while : ; do
   for ((i=0; i<${#PAGES[@]}; ++i)); do

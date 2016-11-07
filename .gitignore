@@ -5,6 +5,7 @@
 
 #also blacklist ones that we know will not ever be tracked
 endpoints.conf
+ssh.pid
 shadow/
 
 #licensing and git stuff
